@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 const SCOPES = 'https://www.googleapis.com/auth/drive';
 
 interface props {
-  CLIENT_ID: string;
+  CLIENT_ID: string | undefined;
 }
 
 const useLoadGAPI = ({ CLIENT_ID }: props) => {
@@ -19,7 +19,7 @@ const useLoadGAPI = ({ CLIENT_ID }: props) => {
   };
   const onGisLoaded = () => {
     setTokenClient(
-      new window.google.accounts.oauth2.initTokenClient({
+      new (window as any).google.accounts.oauth2.initTokenClient({
         client_id: CLIENT_ID,
         scope: SCOPES,
         callback: '', // defined later
